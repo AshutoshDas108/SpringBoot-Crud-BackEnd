@@ -12,9 +12,9 @@ public interface DepartmentService {
 
     Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
-    void deleteDepartmentById(Long departmentId);
+    void deleteDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
-    Department updateDepartment(Long departmentId, Department department);
+    Department updateDepartment(Long departmentId, Department department) throws DepartmentNotFoundException;
 
-    Department fetchDepartmentByName(String departmentName);
+    Department fetchDepartmentByName(String departmentName) throws DepartmentNotFoundException;
 }

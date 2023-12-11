@@ -37,13 +37,23 @@ public class DepartmentServiceImplementation implements DepartmentService{
     }
 
     @Override
-    public void deleteDepartmentById(Long departmentId) {
+    public void deleteDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+       Optional <Department> deptDb = departmentRepository.findById(departmentId);
+        if(! deptDb.isPresent()){
+            throw new DepartmentNotFoundException("Department Not Found!");
+        }
         departmentRepository.deleteById(departmentId);
     }
 
     @Override
-    public Department updateDepartment(Long departmentId, Department department) {
-         Department deptDB = departmentRepository.findById(departmentId).get();
+    public Department updateDepartment(Long departmentId, Department department) throws DepartmentNotFoundException {
+         Optional <Department> dept = departmentRepository.findById(departmentId);
+
+        if(!dept.isPresent()) {
+            throw new DepartmentNotFoundException("Department Not Found!");
+        }
+
+        Department deptDB = dept.get();
 
          if(Objects.nonNull(department.getDepartmentName()) &&
             !"".equalsIgnoreCase(department.getDepartmentName())){
@@ -64,7 +74,11 @@ public class DepartmentServiceImplementation implements DepartmentService{
     }
 
     @Override
-    public Department fetchDepartmentByName(String departmentName) {
-        return departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+    public Department fetchDepartmentByName(String departmentName) throws DepartmentNotFoundException {
+        Department deptDb = departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+        if(! Objects.nonNull(deptDb)){
+            throw new DepartmentNotFoundException("Department Not Found");
+        }
+        return deptDb;
     }
 }

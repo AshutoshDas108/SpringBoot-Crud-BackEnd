@@ -1,6 +1,7 @@
 package com.ashutosh.springboot.demo.service;
 
 import com.ashutosh.springboot.demo.entity.Department;
+import com.ashutosh.springboot.demo.error.DepartmentNotFoundException;
 import com.ashutosh.springboot.demo.repository.DepartmentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +37,7 @@ class DepartmentServiceImplementationTest {
 
     @Test
     @DisplayName("Get data based on a valid Department Name")
-    public void whenValidDepartmentName_then_DepartmentShouldFound(){
+    public void whenValidDepartmentName_then_DepartmentShouldFound() throws DepartmentNotFoundException {
 
         //Try to cover all cases positive as well as negative
 
